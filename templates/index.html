@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a nice, clean font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* A little custom CSS for the pulsing heart animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        .animate-pulse-heart {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-rose-100 to-teal-100 min-h-screen flex items-center justify-center p-4 font-[Inter,sans-serif]">
+
+    <main class="bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl p-8 max-w-4xl w-full transition-all duration-500 hover:shadow-2xl">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 animate-pulse-heart inline-block">❤️</h1>
+            <h2 class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-teal-500 mt-2">
+                Heart Disease Predictor
+            </h2>
+            <p class="text-gray-600 mt-2">Enter the patient's details below to get a prediction.</p>
+        </div>
+
+        <!-- Prediction Form -->
+        <form action="/predict" method="POST">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- A helper function could be used in a real app, but for clarity, we'll list them out -->
+                <!-- Each input field is wrapped in a div for styling and animation -->
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                    <input type="number" name="age" id="age" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 52">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="sex" class="block text-sm font-medium text-gray-700">Sex (1=M, 0=F)</label>
+                    <input type="number" name="sex" id="sex" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 1">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="cp" class="block text-sm font-medium text-gray-700">Chest Pain Type (0-3)</label>
+                    <input type="number" name="cp" id="cp" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 0">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="trestbps" class="block text-sm font-medium text-gray-700">Resting Blood Pressure</label>
+                    <input type="number" name="trestbps" id="trestbps" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 125">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="chol" class="block text-sm font-medium text-gray-700">Cholesterol</label>
+                    <input type="number" name="chol" id="chol" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 212">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="fbs" class="block text-sm font-medium text-gray-700">Fasting Blood Sugar > 120</label>
+                    <input type="number" name="fbs" id="fbs" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="1=true, 0=false">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="restecg" class="block text-sm font-medium text-gray-700">Resting ECG (0-2)</label>
+                    <input type="number" name="restecg" id="restecg" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 1">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="thalach" class="block text-sm font-medium text-gray-700">Max Heart Rate</label>
+                    <input type="number" name="thalach" id="thalach" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 168">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="exang" class="block text-sm font-medium text-gray-700">Exercise Induced Angina</label>
+                    <input type="number" name="exang" id="exang" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="1=yes, 0=no">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="oldpeak" class="block text-sm font-medium text-gray-700">Oldpeak</label>
+                    <input type="text" name="oldpeak" id="oldpeak" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 1.0">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="slope" class="block text-sm font-medium text-gray-700">Slope (0-2)</label>
+                    <input type="number" name="slope" id="slope" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 2">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105">
+                    <label for="ca" class="block text-sm font-medium text-gray-700">Major Vessels (0-3)</label>
+                    <input type="number" name="ca" id="ca" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 2">
+                </div>
+                <div class="relative transform transition-transform duration-300 hover:scale-105 lg:col-span-3">
+                    <label for="thal" class="block text-sm font-medium text-gray-700">Thal (3=normal, 6=fixed, 7=rev)</label>
+                    <input type="number" name="thal" id="thal" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all" placeholder="e.g., 3">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-8 text-center">
+                <button type="submit" class="w-full md:w-auto px-8 py-4 font-bold text-white bg-gradient-to-r from-rose-500 to-teal-500 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-rose-500/50 transform transition-all duration-300">
+                    Get Prediction
+                </button>
+            </div>
+        </form>
+
+        <!-- Prediction Result Display -->
+        {% if prediction_text %}
+        <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-rose-500 to-teal-500 shadow-inner text-center transform transition-all duration-500 scale-100">
+            <h3 class="text-2xl font-bold text-white">{{ prediction_text }}</h3>
+        </div>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>
